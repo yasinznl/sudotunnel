@@ -84,6 +84,8 @@ done
 need_root
 has ip || die "Missing dependency: ip (iproute2)"
 has systemctl || die "Missing dependency: systemctl (systemd)"
+(has curl || has wget) || die "Missing dependency: curl or wget"
+
 
 if [[ "$UNINSTALL" -eq 1 ]]; then
   systemctl stop "${APP}.service" >/dev/null 2>&1 || true
@@ -146,7 +148,9 @@ download() {
   else
     die "Missing dependency: curl or wget"
   fi
+  [[ -s "$out" ]] || die "Download failed: $url"
 }
+
 
 download "$BASE_URL/sudotunnel-up.sh" "$UP"
 download "$BASE_URL/sudotunnel-down.sh" "$DOWN"
