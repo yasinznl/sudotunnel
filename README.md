@@ -53,29 +53,33 @@ Setup on the second server
 
 Run the installer on BOTH servers.
 
-Server A: sudo bash <(curl -fsSL
+Server A: 
+```bash
+sudo bash <(curl -fsSL
 https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh)
 –local-ip A_PUBLIC_IP
 –remote-ip B_PUBLIC_IP
 –tun-ip 10.10.0.0
 –peer-ip 10.10.0.1
 –cidr 31
-
-Server B: sudo bash <(curl -fsSL
+```
+Server B: 
+```bash
+sudo bash <(curl -fsSL
 https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh)
 –local-ip B_PUBLIC_IP
 –remote-ip A_PUBLIC_IP
 –tun-ip 10.10.0.1
 –peer-ip 10.10.0.0
 –cidr 31
-
+```
 ------------------------------------------------------------------------
 
 Manage the service
-
+```bash
 sudo systemctl status sudotunnel –no-pager sudo systemctl restart
 sudotunnel sudo systemctl stop sudotunnel
-
+```
 ------------------------------------------------------------------------
 
 Test
