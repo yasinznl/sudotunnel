@@ -97,15 +97,22 @@ if [[ "$UNINSTALL" -eq 1 ]]; then
 fi
 
 # Interactive mode if anything missing
-if [[ -z "$LOCAL_IP" ]]; then prompt LOCAL_IP "Enter LOCAL public IP (source)"; fi
-if [[ -z "$REMOTE_IP" ]]; then prompt REMOTE_IP "Enter REMOTE public IP (destination)"; fi
-if [[ -z "$TUN_IP" ]]; then prompt TUN_IP "Enter tunnel IP on THIS server" "10.10.0.9"; fi
-if [[ -z "$PEER_IP" ]]; then prompt PEER_IP "Enter tunnel IP on PEER server" "10.10.0.10"; fi
+while ! is_ipv4 "$LOCAL_IP"; do
+  prompt LOCAL_IP "Enter LOCAL public IP (source)"
+done
 
-is_ipv4 "$LOCAL_IP" || die "Invalid --local-ip"
-is_ipv4 "$REMOTE_IP" || die "Invalid --remote-ip"
-is_ipv4 "$TUN_IP" || die "Invalid --tun-ip"
-is_ipv4 "$PEER_IP" || die "Invalid --peer-ip"
+while ! is_ipv4 "$REMOTE_IP"; do
+  prompt REMOTE_IP "Enter REMOTE public IP (destination)"
+done
+
+while ! is_ipv4 "$TUN_IP"; do
+  prompt TUN_IP "Enter tunnel IP on THIS server" "10.10.0.9"
+done
+
+while ! is_ipv4 "$PEER_IP"; do
+  prompt PEER_IP "Enter tunnel IP on PEER server" "10.10.0.10"
+done
+
 [[ "$CIDR" =~ ^([0-9]|[12][0-9]|3[0-2])$ ]] || die "Invalid --cidr"
 [[ "$MTU" =~ ^[0-9]+$ ]] || die "Invalid --mtu"
 
