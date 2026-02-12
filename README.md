@@ -19,7 +19,8 @@ Requirements
 
 ## Quick Install
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh | sudo bash
+curl -fsSL -o install.sh https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh
+sudo bash install.sh
 ```
 
 
