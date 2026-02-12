@@ -1,0 +1,13 @@
+[Unit]
+Description=GRE Tunnel (sudotunnel)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sudotunnel-up
+ExecStop=/usr/local/bin/sudotunnel-down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
