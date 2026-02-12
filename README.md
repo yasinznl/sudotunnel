@@ -17,30 +17,30 @@ Requirements
 
 ------------------------------------------------------------------------
 
-Quick Install (1 line)
+## Quick Install
+```bash
+curl -fsSL https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh | sudo bash
+```
 
-curl -fsSL
-https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh |
-sudo bash
 
 Safer 2-step alternative:
-
+```bash
 curl -fsSL -o install.sh
 https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh
 sudo bash install.sh
-
+```
 ------------------------------------------------------------------------
 
 Install (non-interactive)
-
+```bash
 sudo bash <(curl -fsSL
 https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh)
-–local-ip 193.233.254.223
-–remote-ip 185.232.155.120
+–local-ip 193.111.111.111
+–remote-ip 185.222.222.222
 –tun-ip 10.10.0.0
 –peer-ip 10.10.0.1
 –cidr 31
-
+```
 Recommended: use /31 for point-to-point /31 avoids network/broadcast
 mistakes (common with /30).
 
@@ -86,13 +86,16 @@ From Server B: ping 10.10.0.0
 ------------------------------------------------------------------------
 
 Uninstall
-
+```bash
 sudo ./install.sh –uninstall
+```
 
-Or (if installed via curl): sudo bash <(curl -fsSL
+Or (if installed via curl): 
+```bash
+sudo bash <(curl -fsSL
 https://raw.githubusercontent.com/yasinznl/sudotunnel/main/install.sh)
 –uninstall
-
+```
 ------------------------------------------------------------------------
 
 Troubleshooting
