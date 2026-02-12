@@ -134,12 +134,27 @@ MTU="${MTU}"
 EOF
 chmod 600 "$CONF"
 
-# Install helper scripts
-install -m 0755 "./sudotunnel-up.sh" "$UP"
-install -m 0755 "./sudotunnel-down.sh" "$DOWN"
+# Install helper scripts + unit (works with git clone AND curl|bash)
+BASE_URL="https://raw.githubusercontent.com/yasinznl/sudotunnel/main"
 
-# Install systemd unit
-install -m 0644 "./sudotunnel.service" "$UNIT"
+download() {
+  local url="$1" out="$2"
+  if has curl; then
+    curl -fsSL "$url" -o "$out"
+  elif has wget; then
+    wget -qO "$out" "$url"
+  else
+    die "Missing dependency: curl or wget"
+  fi
+}
+
+download "$BASE_URL/sudotunnel-up.sh" "$UP"
+download "$BASE_URL/sudotunnel-down.sh" "$DOWN"
+download "$BASE_URL/sudotunnel.service" "$UNIT"
+
+chmod 0755 "$UP" "$DOWN"
+chmod 0644 "$UNIT"
+
 
 systemctl daemon-reload
 systemctl enable --now "${APP}.service"
